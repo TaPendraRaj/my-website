@@ -4,125 +4,187 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tapendra Raj Joshi | Portfolio</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.0/lucide.min.js"></script>
     <style>
         :root {
-            --primary: #6366f1;
-            --dark: #0f172a;
-            --light: #f8fafc;
-            --gray: #64748b;
+            --primary: #4f46e5;
+            --accent: #06b6d4;
+            --bg: #030712;
+            --card: rgba(31, 41, 55, 0.5);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
         }
 
         body {
-            background-color: var(--dark);
-            color: var(--light);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-color: var(--bg);
+            color: #f3f4f6;
+            overflow-x: hidden;
             min-height: 100vh;
-            line-height: 1.6;
         }
 
-        .container {
-            text-align: center;
+        /* Animated Background */
+        .blob {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            filter: blur(80px);
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0.15;
+            animation: move 20s infinite alternate;
+        }
+
+        @keyframes move {
+            from { transform: translate(-10%, -10%); }
+            to { transform: translate(50%, 20%); }
+        }
+
+        .main-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            min-height: 100vh;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 2rem;
             padding: 2rem;
-            max-width: 600px;
-            width: 90%;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 24px;
-            backdrop-filter: blur(10px);
+        }
+
+        /* Sidebar Profile Card */
+        .sidebar {
+            background: var(--card);
+            backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border-radius: 24px;
+            padding: 2rem;
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+            text-align: center;
         }
 
         .profile-img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--primary), #a855f7);
+            width: 140px;
+            height: 140px;
+            border-radius: 24px;
             margin-bottom: 1.5rem;
-            display: inline-block;
-            padding: 4px;
-        }
-
-        .profile-img img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
             object-fit: cover;
-            border: 4px solid var(--dark);
+            border: 2px solid var(--accent);
         }
 
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(to right, #fff, #94a3b8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .tag {
+            background: rgba(79, 70, 229, 0.2);
+            color: var(--accent);
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
         }
 
-        p {
-            color: var(--gray);
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
+        /* Content Section */
+        .content { display: flex; flex-direction: column; gap: 2rem; }
+
+        .section {
+            background: var(--card);
+            padding: 2rem;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .links {
-            display: flex;
-            flex-direction: column;
+        h2 { margin-bottom: 1.5rem; color: var(--accent); display: flex; align-items: center; gap: 10px; }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             gap: 1rem;
         }
 
-        .btn {
-            padding: 12px 24px;
-            background: var(--primary);
-            color: white;
-            text-decoration: none;
+        .skill-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1rem;
             border-radius: 12px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: 0.3s;
         }
 
-        .btn:hover {
-            background: transparent;
-            border-color: var(--primary);
-            color: var(--primary);
-            transform: translateY(-2px);
+        .skill-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
         }
 
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--light);
-        }
-
-        .btn-secondary:hover {
+        .social-btn {
+            color: white;
             background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+
+        .social-btn:hover { background: var(--primary); }
+
+        @media (max-width: 900px) {
+            .main-layout { grid-template-columns: 1fr; }
+            .sidebar { position: relative; top: 0; }
         }
     </style>
 </head>
 <body>
+    <div class="blob"></div>
 
-    <div class="container">
-        <div class="profile-img">
-            <img src="https://ui-avatars.com/api/?name=Tapendra+Raj&background=random" alt="Tapendra">
-        </div>
-        <h1>Tapendra Raj Joshi</h1>
-        <p>Developer & Tech Enthusiast</p>
-        
-        <div class="links">
-            <a href="https://github.com/TaPendraRaj" class="btn">View My GitHub</a>
-            <a href="#" class="btn btn-secondary">Contact Me</a>
-            <a href="#" class="btn btn-secondary">My Projects</a>
-        </div>
+    <div class="main-layout">
+        <aside class="sidebar">
+            <img src="https://ui-avatars.com/api/?name=Tapendra+Raj&size=200&background=4f46e5&color=fff" alt="Profile" class="profile-img">
+            <h1>Tapendra Raj Joshi</h1>
+            <span class="tag">Full Stack Developer</span>
+            <p style="margin: 1rem 0; font-size: 0.9rem; color: #9ca3af;">Building digital experiences with modern technology.</p>
+            
+            <div class="social-links">
+                <a href="https://github.com/TaPendraRaj" class="social-btn"><i data-lucide="github"></i></a>
+                <a href="#" class="social-btn"><i data-lucide="linkedin"></i></a>
+                <a href="#" class="social-btn"><i data-lucide="mail"></i></a>
+            </div>
+        </aside>
+
+        <main class="content">
+            <section class="section">
+                <h2><i data-lucide="user"></i> About Me</h2>
+                <p>Hello! I'm a passionate developer based in Nepal. I love turning complex problems into simple, beautiful, and intuitive designs.</p>
+            </section>
+
+            <section class="section">
+                <h2><i data-lucide="cpu"></i> Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-card">HTML/CSS</div>
+                    <div class="skill-card">JavaScript</div>
+                    <div class="skill-card">GitHub</div>
+                    <div class="skill-card">UI Design</div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2><i data-lucide="rocket"></i> Featured Project</h2>
+                <div style="background: rgba(0,0,0,0.2); padding: 1.5rem; border-radius: 16px;">
+                    <h3>My Website</h3>
+                    <p style="font-size: 0.9rem; margin: 0.5rem 0;">A modern portfolio site hosted on GitHub Pages with custom DNS.</p>
+                    <a href="#" style="color: var(--accent); text-decoration: none; font-weight: bold;">Live Demo →</a>
+                </div>
+            </section>
+        </main>
     </div>
 
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+    </script>
 </body>
 </html>
